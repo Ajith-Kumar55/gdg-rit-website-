@@ -178,4 +178,4 @@ ADMIN_FULL_NAME=GDG RIT Administrator
 - **Instagram**: `@gdg_club_rit`
 - **Main WhatsApp Community**: [Join Group](https://chat.whatsapp.com/Ep2J8GpmRBoF0Fj3A5eks1)
 - **CODESTORM 2026 GitHub**: [codestorm-2026](https://github.com/Yashawantha26/codestorm-2026.git)
-- **Credit**: *Designed & Developed by Yashawantha H M*
+- **Credit**: *Designed & Developed by Ajithkumar HM ,Chaithan SR,sathwik HL*
