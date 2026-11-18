@@ -5,6 +5,16 @@
 
 ---
 
+## 🌐 Live Demo
+
+- **Live Website:** [https://gdg-rit-website-five.vercel.app/](https://gdg-rit-website-five.vercel.app/)
+- **Backend API:** [https://gdg-rit-backend.onrender.com](https://gdg-rit-backend.onrender.com)
+- **API Documentation:** [https://gdg-rit-backend.onrender.com/docs](https://gdg-rit-backend.onrender.com/docs)
+
+> The frontend is hosted on Vercel, and the FastAPI backend is deployed on Render.
+
+---
+
 ## Short Project Description
 
 A modern, database-backed full-stack web platform for **GDG on Campus – Rajeev Institute of Technology, Hassan**. Built with React, TypeScript, Tailwind CSS, FastAPI, and SQLAlchemy, it combines an engaging public developer community hub (Home, About, Events & Live Registration, Activities & Achievements, Interactive Gallery, Team Directory, Verifiable Digital Certificates, Membership Portal, and Contact Desk) with a JWT-secured Admin Control Panel for real-time club operations.
@@ -26,6 +36,7 @@ A modern, database-backed full-stack web platform for **GDG on Campus – Rajeev
 ## Key Features
 
 ### Public Website
+
 - **Home (`/`)**: Hero with official GDG, RIT, and CSE branding, live announcement banner, dynamic database-backed community statistics, featured **CODESTORM 2026** countdown & instant registration, 4 interactive technology tracks, gallery preview with lightbox, and team spotlight.
 - **About (`/about`)**: Official Mission, Vision, 8 strategic goals, 6 technology domain cards, club inauguration milestone (23 September 2026), and all three institutional logos (GDG on Campus, RIT Hassan, Dept. of CSE).
 - **Events & Live Registration (`/events`, `/events/:slug`)**: Searchable/filterable events catalog, full event detail pages (agenda, speakers, coordinators, eligibility, rules, FAQs), individual & team registration modal with duplicate email/USN prevention, capacity & deadline validation, and unique registration pass generation.
@@ -37,6 +48,7 @@ A modern, database-backed full-stack web platform for **GDG on Campus – Rajeev
 - **Contact Desk (`/contact`)**: Backend-connected contact form, official club channels (`gdgoncampusgdgclubrit@gmail.com`, `@gdg_club_rit`, WhatsApp communities, GitHub), and embedded Google Maps location for RIT Hassan.
 
 ### Protected Admin Control Panel (`/admin/login`)
+
 - **Dashboard (`/admin/dashboard`)**: Real-time KPIs, recent registrations, recent visitor messages, and authenticated CSV export.
 - **Events Manager (`/admin/events`)**: Create/edit/delete events, poster image uploads, agenda/speakers/coordinators/rules/deadline fields, draft publish & registration open/close toggles.
 - **Registrations Manager (`/admin/registrations`)**: Search, filter by event/department, update status (`CONFIRMED`/`WAITLIST`/`CANCELLED`), and export filtered CSV rosters.
@@ -64,9 +76,9 @@ gdg-rit-website/
 │       ├── core/                # config.py (.env loader), security.py (PBKDF2 + JWT)
 │       ├── database/            # session.py (SQLite FK PRAGMA), seed.py, reset_admin.py
 │       ├── models/              # 12 relational SQLAlchemy models
-│       ├── schemas/             # Pydantic v2 validation schemas
-│       ├── routes/              # 11 REST API routers under /api/*
-│       └── utils/               # file_storage.py (magic-byte & size validation)
+│       ├── schemas/              # Pydantic v2 validation schemas
+│       ├── routes/               # 11 REST API routers under /api/*
+│       └── utils/                # file_storage.py (magic-byte & size validation)
 └── frontend/
     ├── .env.example             # Frontend environment variable template
     ├── vercel.json              # SPA deep-link rewrites for Vercel
@@ -90,27 +102,33 @@ gdg-rit-website/
 ## Installation & Local Setup
 
 ### Prerequisites
+
 - **Python 3.10+** and `pip`
 - **Node.js 18+** and `npm`
 
 ### 1. Configure Environment Variables
+
 Copy the example templates and set your own secure values:
+
 ```powershell
 Copy-Item backend\.env.example backend\.env
 Copy-Item frontend\.env.example frontend\.env
 ```
 
 ### 2. Backend Installation & Startup (`http://localhost:8000`)
+
 ```powershell
 cd backend
 pip install -r requirements.txt
 python run.py
 ```
+
 - Database tables and authentic GDG RIT Hassan seed data are initialized automatically on first startup (`backend/gdg_rit.db`).
 - Interactive OpenAPI Docs: `http://localhost:8000/docs`
 - Health Check: `http://localhost:8000/health`
 
 ### 3. Frontend Installation & Startup (`http://localhost:5173`)
+
 ```powershell
 cd frontend
 npm install
@@ -118,6 +136,7 @@ npm run dev -- --port 5173
 ```
 
 ### 4. Production Build (Frontend)
+
 ```powershell
 cd frontend
 npm run build
@@ -140,10 +159,12 @@ ADMIN_FULL_NAME=GDG RIT Administrator
 
 - **Local Development**: You can sign in at `http://localhost:5173/admin/login` using either your configured `ADMIN_USERNAME` or `ADMIN_EMAIL` (case-insensitive) and `ADMIN_PASSWORD`.
 - **Safe Dev-Only Credential Reset** (preserves all events, registrations, gallery, and team records):
+
   ```powershell
   cd backend
   python -m app.database.reset_admin
   ```
+
 - **Production Safety**: When `ENVIRONMENT=production`, the backend refuses to boot without an explicit `SECRET_KEY`, never provisions hardcoded default credentials, and disables `reset_admin.py`. Always change passwords via **Admin Portal → Settings → Security & Passwords**.
 
 ---
@@ -151,6 +172,7 @@ ADMIN_FULL_NAME=GDG RIT Administrator
 ## Deployment Instructions
 
 ### Backend Deployment (Render / Railway)
+
 1. Push this repository to a **public GitHub repository** (verify `.gitignore` excludes `.env` and `*.db`).
 2. Create a new **Web Service** pointing to the `backend/` root directory.
 3. Set Build Command: `pip install -r requirements.txt`
@@ -163,19 +185,33 @@ ADMIN_FULL_NAME=GDG RIT Administrator
    - `ADMIN_USERNAME`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` (for initial first-boot provisioning)
 
 ### Frontend Deployment (Vercel)
+
 1. Import the public GitHub repository in **Vercel** and set Root Directory to `frontend`.
 2. Framework Preset: **Vite** (`npm run build`, output `dist`).
 3. Add Environment Variables:
-   - `VITE_API_BASE_URL=https://your-backend-service.onrender.com/api`
-   - `VITE_BACKEND_URL=https://your-backend-service.onrender.com`
+   - `VITE_API_BASE_URL=https://gdg-rit-backend.onrender.com/api`
+   - `VITE_BACKEND_URL=https://gdg-rit-backend.onrender.com`
 4. Deploy (`frontend/vercel.json` handles SPA routing for all public and admin URLs).
+
+### Production URLs
+
+| Service | URL |
+| :--- | :--- |
+| **Live Website** | https://gdg-rit-website-five.vercel.app/ |
+| **Backend API** | https://gdg-rit-backend.onrender.com |
+| **API Documentation** | https://gdg-rit-backend.onrender.com/docs |
 
 ---
 
 ## Official Club Links & Credits
+
 - **Club**: GDG on Campus – Rajeev Institute of Technology, Hassan (Department of CSE)
 - **Email**: `gdgoncampusgdgclubrit@gmail.com`
 - **Instagram**: `@gdg_club_rit`
 - **Main WhatsApp Community**: [Join Group](https://chat.whatsapp.com/Ep2J8GpmRBoF0Fj3A5eks1)
 - **CODESTORM 2026 GitHub**: [codestorm-2026](https://github.com/Yashawantha26/codestorm-2026.git)
-- **Credit**: *Designed & Developed by Ajithkumar HM ,Chaithan SR,sathwik HL*
+- **Credit**: *Designed & Developed by Ajithkumar HM, Chaithan SR, Sathwik HL*
+
+---
+
+**Built with ❤️ for GDG on Campus – RIT Hassan.**
