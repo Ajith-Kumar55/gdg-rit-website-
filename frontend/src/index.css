@@ -1,0 +1,364 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-main: #080B14;
+  --bg-secondary: #101625;
+  --bg-card: #151E30;
+  --accent-primary: #4285F4;
+  --accent-secondary: #00D4FF;
+  --accent-orange: #FF7043;
+  --accent-highlight: #A8FF60;
+  --text-main: #F5F7FF;
+  --text-secondary: #A6B0C3;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: #080B14;
+  }
+
+  body {
+    background-color: #080B14;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(66, 133, 244, 0.12), transparent 65%),
+      radial-gradient(ellipse 55% 40% at 85% 20%, rgba(0, 212, 255, 0.06), transparent 60%);
+    color: #F5F7FF;
+    overflow-x: hidden;
+  }
+}
+
+/* Premium dark metallic scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #080B14;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #1E2B45 0%, #151E30 100%);
+  border: 1px solid rgba(66, 133, 244, 0.2);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #4285F4 0%, #2754A8 100%);
+}
+
+/* =====================================================================
+   REALISTIC PHYSICAL 3D SURFACES, BEVELS, SPECULAR SHEEN & TILT
+   ===================================================================== */
+@layer components {
+  .glass-panel,
+  .surface-3d {
+    background: linear-gradient(
+      162deg,
+      rgba(30, 43, 68, 0.92) 0%,
+      rgba(21, 30, 48, 0.95) 48%,
+      rgba(13, 19, 32, 0.98) 100%
+    );
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(180, 196, 224, 0.14);
+    border-top-color: rgba(235, 244, 255, 0.24);
+    border-bottom-color: rgba(4, 7, 14, 0.85);
+    box-shadow:
+      0 1px 0 0 rgba(255, 255, 255, 0.08) inset,
+      0 -3px 0 0 rgba(4, 7, 15, 0.65) inset,
+      0 22px 44px -16px rgba(0, 0, 0, 0.85),
+      0 8px 18px -6px rgba(0, 0, 0, 0.6),
+      0 2px 4px 0 rgba(0, 0, 0, 0.45);
+  }
+}
+
+.glass-panel-hover,
+.card-3d {
+  position: relative;
+  --rx: 0deg;
+  --ry: 0deg;
+  --mx: 50%;
+  --my: 25%;
+  transform-style: preserve-3d;
+  transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry)) translateZ(0);
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.28s ease,
+    box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.glass-panel-hover::after,
+.card-3d::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    420px circle at var(--mx) var(--my),
+    rgba(220, 240, 255, 0.13) 0%,
+    rgba(0, 212, 255, 0.06) 35%,
+    transparent 70%
+  );
+  transition: opacity 0.28s ease;
+}
+
+.glass-panel-hover:hover,
+.card-3d:hover {
+  border-color: rgba(120, 195, 255, 0.34);
+  border-top-color: rgba(210, 240, 255, 0.45);
+  transform: perspective(1100px) translateY(-6px) rotateX(var(--rx, 2deg)) rotateY(var(--ry, 0deg));
+  box-shadow:
+    0 1px 0 0 rgba(230, 245, 255, 0.28) inset,
+    0 -3px 0 0 rgba(4, 7, 15, 0.78) inset,
+    0 32px 58px -16px rgba(0, 0, 0, 0.92),
+    0 12px 24px -8px rgba(0, 0, 0, 0.72),
+    0 0 28px -12px rgba(66, 133, 244, 0.35);
+}
+
+.glass-panel-hover:hover::after,
+.card-3d:hover::after {
+  opacity: 1;
+}
+
+/* Tactile Machined 3D Buttons with Physical Bevel Thickness & Pressed Travel */
+.btn-3d-primary {
+  position: relative;
+  background: linear-gradient(175deg, #5698FF 0%, #3B7DF0 42%, #2358C7 100%);
+  color: #F5F7FF;
+  border: 1px solid rgba(155, 215, 255, 0.42);
+  border-top-color: rgba(235, 248, 255, 0.58);
+  border-bottom-color: #143680;
+  box-shadow:
+    0 4px 0 0 #16398A,
+    0 14px 28px -8px rgba(10, 24, 64, 0.85),
+    0 8px 22px -8px rgba(66, 133, 244, 0.48),
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -1px 0 rgba(8, 18, 45, 0.35);
+  transition:
+    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.18s ease;
+}
+.btn-3d-primary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow:
+    0 6px 0 0 #16398A,
+    0 20px 34px -8px rgba(8, 18, 52, 0.9),
+    0 10px 26px -6px rgba(0, 212, 255, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+.btn-3d-primary:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 1px 0 0 #16398A,
+    0 4px 10px -4px rgba(0, 0, 0, 0.8),
+    inset 0 2px 4px rgba(8, 16, 40, 0.4);
+}
+
+.btn-3d-secondary {
+  position: relative;
+  background: linear-gradient(175deg, #22304C 0%, #162035 55%, #101728 100%);
+  color: #F5F7FF;
+  border: 1px solid rgba(175, 195, 225, 0.22);
+  border-top-color: rgba(235, 245, 255, 0.28);
+  border-bottom-color: #070B14;
+  box-shadow:
+    0 4px 0 0 #090E1A,
+    0 12px 24px -8px rgba(0, 0, 0, 0.82),
+    inset 0 1px 0 rgba(245, 247, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.55);
+  transition:
+    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.18s ease,
+    box-shadow 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-3d-secondary:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 212, 255, 0.42);
+  box-shadow:
+    0 6px 0 0 #090E1A,
+    0 18px 30px -8px rgba(0, 0, 0, 0.88),
+    0 0 20px -8px rgba(0, 212, 255, 0.26),
+    inset 0 1px 0 rgba(210, 245, 255, 0.32);
+}
+.btn-3d-secondary:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 1px 0 0 #090E1A,
+    0 4px 10px -4px rgba(0, 0, 0, 0.85),
+    inset 0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+.btn-3d-highlight {
+  position: relative;
+  background: linear-gradient(175deg, rgba(168, 255, 96, 0.22) 0%, rgba(28, 62, 54, 0.72) 100%);
+  color: #B8FF7A;
+  border: 1px solid rgba(168, 255, 96, 0.4);
+  border-top-color: rgba(215, 255, 175, 0.52);
+  border-bottom-color: rgba(20, 48, 26, 0.9);
+  box-shadow:
+    0 4px 0 0 rgba(22, 56, 30, 0.92),
+    0 12px 24px -8px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(220, 255, 185, 0.34);
+  transition:
+    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.18s ease,
+    background 0.18s ease;
+}
+.btn-3d-highlight:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(175deg, rgba(168, 255, 96, 0.3) 0%, rgba(32, 74, 62, 0.82) 100%);
+  box-shadow:
+    0 6px 0 0 rgba(22, 56, 30, 0.95),
+    0 16px 30px -8px rgba(0, 0, 0, 0.82),
+    0 0 22px -8px rgba(168, 255, 96, 0.35),
+    inset 0 1px 0 rgba(230, 255, 200, 0.48);
+}
+.btn-3d-highlight:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 1px 0 0 rgba(22, 56, 30, 0.95),
+    0 4px 10px -4px rgba(0, 0, 0, 0.8);
+}
+
+/* 3D GDG Logo Medallion Presentation (Used in About/Login & WebGL Fallback) */
+.logo-3d-medallion {
+  position: relative;
+  background: linear-gradient(145deg, #ffffff 0%, #eaf0ff 100%);
+  box-shadow:
+    0 24px 55px -12px rgba(0, 0, 0, 0.9),
+    0 0 38px -10px rgba(66, 133, 244, 0.42),
+    0 0 0 2px rgba(245, 247, 255, 0.45),
+    0 0 0 8px #182338,
+    0 0 0 9px rgba(180, 210, 255, 0.32),
+    0 10px 0 6px #0B111F;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
+}
+.logo-3d-medallion:hover {
+  transform: perspective(900px) rotateX(6deg) rotateY(-6deg) scale(1.03);
+  box-shadow:
+    0 32px 64px -12px rgba(0, 0, 0, 0.94),
+    0 0 46px -8px rgba(0, 212, 255, 0.46),
+    0 0 0 2px rgba(245, 247, 255, 0.55),
+    0 0 0 8px #1C2942,
+    0 0 0 9px rgba(0, 212, 255, 0.52),
+    0 12px 0 6px #0B111F;
+}
+
+/* 3D Perspective Orbit Ring (Static Fallback) */
+.orbit-3d-plane {
+  transform: perspective(900px) rotateX(66deg) rotateZ(-14deg);
+  transform-style: preserve-3d;
+}
+
+/* 3D Floating Wireframe Geometric Shapes */
+.geo-prism-3d {
+  border: 1px solid rgba(180, 215, 255, 0.2);
+  border-top-color: rgba(235, 248, 255, 0.36);
+  background: linear-gradient(145deg, rgba(40, 62, 102, 0.28) 0%, rgba(15, 24, 42, 0.45) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(245, 247, 255, 0.22),
+    0 18px 34px -12px rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(6px);
+}
+
+/* 3D Elevated Machined Image Frame */
+.image-3d-frame {
+  border: 1px solid rgba(180, 200, 230, 0.2);
+  border-top-color: rgba(230, 242, 255, 0.32);
+  border-bottom-color: rgba(4, 7, 14, 0.9);
+  box-shadow:
+    0 24px 50px -14px rgba(0, 0, 0, 0.9),
+    0 10px 20px -8px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(245, 247, 255, 0.18);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+.image-3d-frame:hover {
+  border-color: rgba(0, 212, 255, 0.4);
+  transform: perspective(1100px) translateY(-5px) rotateX(1.6deg);
+  box-shadow:
+    0 32px 60px -14px rgba(0, 0, 0, 0.94),
+    0 12px 24px -8px rgba(0, 0, 0, 0.72),
+    0 0 30px -12px rgba(66, 133, 244, 0.34);
+}
+
+/* Architectural Futuristic Grid Pattern */
+.bg-grid-pattern {
+  background-size: 44px 44px;
+  background-image:
+    linear-gradient(to right, rgba(66, 133, 244, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 212, 255, 0.045) 1px, transparent 1px);
+}
+
+/* Controlled Brand Accent Gradient Bar */
+.google-gradient-bar {
+  background: linear-gradient(90deg, #4285F4 0%, #00D4FF 34%, #FF7043 68%, #A8FF60 100%);
+}
+
+/* Controlled Futuristic Gradient Typography */
+.google-gradient-text {
+  background: linear-gradient(125deg, #F5F7FF 0%, #4285F4 36%, #00D4FF 72%, #A8FF60 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Metallic Divider Hairline */
+.metallic-hairline {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(66, 133, 244, 0.38) 25%,
+    rgba(0, 212, 255, 0.5) 50%,
+    rgba(66, 133, 244, 0.38) 75%,
+    transparent 100%
+  );
+}
+
+/* Clean Certificate Print Layout */
+@media print {
+  header,
+  footer,
+  nav,
+  button,
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+/* Global Accessible Keyboard Focus Indicator */
+:focus-visible {
+  outline: 2px solid #00D4FF;
+  outline-offset: 2px;
+}
+
+/* Respect User Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .glass-panel-hover:hover,
+  .card-3d:hover,
+  .logo-3d-medallion:hover,
+  .image-3d-frame:hover {
+    transform: none !important;
+  }
+}

@@ -1,0 +1,37 @@
+# Environment & Secret Files (NEVER commit real secrets)
+.env
+.env.local
+.env.*.local
+backend/.env
+frontend/.env
+
+# SQLite Databases & Local Uploaded User Media
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+backend/uploads/*/*
+!backend/uploads/**/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# Node / Vite Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+*.tsbuildinfo
+
+# Logs & OS Files
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
